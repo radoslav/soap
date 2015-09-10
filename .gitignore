@@ -1,0 +1,16 @@
+# go lang
+**/bin/
+**/pkg/
+
+# maven
+**/log/
+**/target/
+
+# eclipse 
+**/.classpath
+**/.project
+**/.settings/
+
+**/dataBase.properties
+**/logs/
+**/channels/
