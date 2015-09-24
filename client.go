@@ -3,7 +3,7 @@ package soap
 import (
 	"bytes"
 	"crypto/tls"
-//	"encoding/xml"
+	"encoding/xml"
 	"errors"
 	"io/ioutil"
 	"net/http"
@@ -48,18 +48,10 @@ func Request(url string, soapRequest []byte, soapAction string) ([]byte, error) 
 	}
 
 	// test for fault
-//	xmlEnvelope := ResponseEnvelope{}
-//
-//	err = xml.Unmarshal(soapResponse, xmlEnvelope)
-//	if err != nil {
-//		return nil, err
-//	}
-//	
-//	fault := xmlEnvelope.ResponseBodyBody.Fault
-//	if fault != nil {
-//		var sFault string = fault.Code 
-//		return nil, errors.New(sFault) 
-//	}
+	err = CheckFault(soapResponse)
+	if err != nil {
+		return nil, err
+	}
 
 	return soapResponse, nil
 }
@@ -72,4 +64,21 @@ func SoapFomMTOM(soap []byte) ([]byte, error) {
 	}
 
 	return []byte(s), nil
+}
+
+func CheckFault(soapResponse []byte) error {
+	xmlEnvelope := ResponseEnvelope{}
+
+	err := xml.Unmarshal(soapResponse, &xmlEnvelope)
+	if err != nil {
+		return err
+	}
+
+	fault := xmlEnvelope.ResponseBodyBody.Fault
+	if fault.XMLName.Local == "Fault" {
+		sFault := fault.Code + " | " + fault.String + " | " + fault.Actor + " | " + fault.Detail
+		return errors.New(sFault)
+	}
+
+	return nil
 }
