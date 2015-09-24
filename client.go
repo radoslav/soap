@@ -3,6 +3,7 @@ package soap
 import (
 	"bytes"
 	"crypto/tls"
+//	"encoding/xml"
 	"errors"
 	"io/ioutil"
 	"net/http"
@@ -45,6 +46,20 @@ func Request(url string, soapRequest []byte, soapAction string) ([]byte, error) 
 	if err != nil {
 		return nil, err
 	}
+
+	// test for fault
+//	xmlEnvelope := ResponseEnvelope{}
+//
+//	err = xml.Unmarshal(soapResponse, xmlEnvelope)
+//	if err != nil {
+//		return nil, err
+//	}
+//	
+//	fault := xmlEnvelope.ResponseBodyBody.Fault
+//	if fault != nil {
+//		var sFault string = fault.Code 
+//		return nil, errors.New(sFault) 
+//	}
 
 	return soapResponse, nil
 }
