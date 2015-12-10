@@ -45,9 +45,10 @@ build:
           go test ./...
 
 deploy:
-  steps:
-    - script:
-        name: pwd
-        code: |
-          pwd
-
+    steps:
+        - script:
+            name: pwd
+            code: |
+                echo ".... PWD ..."
+                pwd
+                ls -la
