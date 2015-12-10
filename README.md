@@ -32,7 +32,7 @@ func main() {
 		},
 	}
 
-	env.Header.WsseSecurity.UsernameToken.Username.Value = "test"
+	env.Header.WsseSecurity.UsernameToken.Username.Value = "username"
 	env.Header.WsseSecurity.UsernameToken.Password.Value = "pass"
 	env.Body = &soap.Body{} // interface
 
@@ -52,7 +52,7 @@ Output:
    <soapenv:Header>
       <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
          <wsse:UsernameToken wsu:Id="UsernameToken-1">
-            <wsse:Username>test</wsse:Username>
+            <wsse:Username>username</wsse:Username>
             <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">pass</wsse:Password>
          </wsse:UsernameToken>
       </wsse:Security>
