@@ -43,3 +43,10 @@ build:
         name: go test
         code: |
           go test ./...
+
+deploy:
+  steps:
+    - script:
+        name: pwd
+        code: |
+          pwd
