@@ -60,3 +60,33 @@ Output:
    <soapenv:Body></soapenv:Body>
 </soapenv:Envelope>
 ```
+### Unmarshal
+
+```go
+package main
+
+import (
+   "encoding/xml"
+   "github.com/radoslav/soap"
+)
+
+const data = `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:univ="http://www.example.pl/ws/test/universal">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+         <wsse:UsernameToken wsu:Id="UsernameToken-1">
+            <wsse:Username>username</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">pass</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body></soapenv:Body>
+</soapenv:Envelope>`
+
+func main() {
+   var env soap.ResponseEnvelope
+   err := xml.Unmarshal([]byte(data), &env)
+   if err != nil {
+      panic(err)
+   }
+}
+```
